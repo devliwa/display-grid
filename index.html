@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Interactive Chessboard</title>
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      background-color: #f0f0f0;
+      margin: 0;
+      font-family: sans-serif;
+    }
+
+    .container {
+      display: grid;
+      grid-template-columns: repeat(8, 1fr);
+      grid-template-rows: repeat(8, 1fr);
+      width: 80vmin;
+      height: 80vmin;
+      border: 5px solid #333;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .square {
+      width: 100%;
+      height: 100%;
+      transition: transform 0.2s, filter 0.2s;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 3vmin;
+      cursor: pointer;
+    }
+
+    .white {
+      background-color: #f0d9b5;
+    }
+
+    .black {
+      background-color: #b58863;
+    }
+
+    .square:hover {
+      transform: scale(1.05);
+      filter: brightness(1.2);
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container" id="chessboard"></div>
+
+  <script>
+    const board = document.getElementById('chessboard');
+
+    for (let row = 0; row < 8; row++) {
+      for (let col = 0; col < 8; col++) {
+        const square = document.createElement('div');
+        square.classList.add('square');
+
+        // Determine color
+        if ((row + col) % 2 === 0) {
+          square.classList.add('white');
+        } else {
+          square.classList.add('black');
+        }
+
+        // Optional: Add chess pieces symbols on the first and last two rows
+        const pieces = [
+          ['♜', '♞', '♝', '♛', '♚', '♝', '♞', '♜'], // Black major pieces
+          ['♟', '♟', '♟', '♟', '♟', '♟', '♟', '♟'], // Black pawns
+          ['♙', '♙', '♙', '♙', '♙', '♙', '♙', '♙'], // White pawns
+          ['♖', '♘', '♗', '♕', '♔', '♗', '♘', '♖']  // White major pieces
+        ];
+
+        if (row === 0) square.textContent = pieces[0][col];
+        if (row === 1) square.textContent = pieces[1][col];
+        if (row === 6) square.textContent = pieces[2][col];
+        if (row === 7) square.textContent = pieces[3][col];
+
+        board.appendChild(square);
+      }
+    }
+  </script>
+</body>
+
+</html>
